@@ -8,7 +8,7 @@
                 <a href="{{ route('landing') }}" class="flex items-center gap-2">
                     <div class="logo-section">
                         {{-- <div class="logo">L</div> --}}
-                        <img id="logo_navbar" src="{{ asset('asset/img/logo_fokuskito.png') }}" alt="Logo">
+                        <img id="logo_navbar" src="{{ asset('/public/asset/img/logo_fokuskito.png') }}" alt="Logo">
                         {{-- <span class="logo-text">Liputan Palembang</span> --}}
                     </div>
                 </a>

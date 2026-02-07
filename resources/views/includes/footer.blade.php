@@ -7,7 +7,7 @@
                 <div class="footer-brand">
                     {{-- <div class="footer-logo">L</div> --}}
                     <div class="logo-wrapper">
-                        <img id="logo_navbar" src="{{ asset('asset/img/logo_fokuskito.png') }}" alt="Logo">
+                        <img id="logo_navbar" src="{{ asset('/public/asset/img/logo_fokuskito.png') }}" alt="Logo">
                     </div>
                     {{-- <span class="footer-logo-text">Liputan Palembang</span> --}}
                 </div>
