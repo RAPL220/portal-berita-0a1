@@ -9,7 +9,7 @@
                     <div class="logo-section">
                         {{-- <div class="logo">L</div> --}}
                         <img id="logo_navbar" src="{{ asset('asset/img/Logo.png') }}" alt="Logo">
-                        <span class="logo-text">Liputan Palembang</span>
+                        {{-- <span class="logo-text">Liputan Palembang</span> --}}
                     </div>
                 </a>
 
@@ -72,8 +72,10 @@
     }
 
     #logo_navbar {
-        max-width: 50px;
-        height: auto;
+        max-height: 40px;
+        width: auto;
+        transform: scale(2.4);
+        transform-origin: left center;
     }
 
     /* Navbar Styles */
@@ -200,6 +202,10 @@
         border: none;
         cursor: pointer;
         color: var(--primary);
+    }
+
+    #menu {
+        margin-left: 50px;
     }
 
     /* Mobile Menu Styles */

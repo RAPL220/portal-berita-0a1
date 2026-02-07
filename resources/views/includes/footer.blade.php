@@ -6,14 +6,16 @@
             <div class="footer-brand-section">
                 <div class="footer-brand">
                     {{-- <div class="footer-logo">L</div> --}}
-                    <img id="logo_navbar" src="{{ asset('asset/img/Logo.png') }}" alt="Logo">
-                    <span class="footer-logo-text">Liputan Palembang</span>
+                    <div class="logo-wrapper">
+                        <img id="logo_navbar" src="{{ asset('asset/img/Logo.png') }}" alt="Logo">
+                    </div>
+                    {{-- <span class="footer-logo-text">Liputan Palembang</span> --}}
                 </div>
                 <p class="footer-description">
                     Portal berita terpercaya yang menyajikan informasi terkini seputar Palembang dan Sumatera Selatan.
                     Kami berkomitmen memberikan berita berkualitas dan akurat untuk Anda.
                 </p>
-                <div class="social-links">
+                {{-- <div class="social-links">
                     <a href="#" class="social-link" aria-label="Facebook">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -38,28 +40,28 @@
                                 d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
                     </a>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Kategori Section -->
-            <div class="footer-section">
+            {{-- <div class="footer-section">
                 <h3>Kategori</h3>
                 <ul class="footer-links">
                     @foreach (\App\Models\Categories::all() as $category)
                         <li><a href="#">{{ $category->title }}</a></li>
                     @endforeach
                 </ul>
-            </div>
+            </div> --}}
 
             <!-- Tentang Kami Section -->
             <div class="footer-section">
                 <h3>Tentang Kami</h3>
                 <ul class="footer-links">
                     <li><a href="#">Redaksi</a></li>
-                    <li><a href="#">Pedoman Media Siber</a></li>
+                    {{-- <li><a href="#">Pedoman Media Siber</a></li> --}}
                     <li><a href="#">Kontak</a></li>
-                    <li><a href="#">Karir</a></li>
-                    <li><a href="#">Advertise</a></li>
+                    {{-- <li><a href="#">Karir</a></li> --}}
+                    {{-- <li><a href="#">Advertise</a></li> --}}
                 </ul>
             </div>
 
@@ -72,7 +74,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        redaksi@liputanpalembang.com
+                        fokuskito@gmail.com
                     </li>
                     <li>
                         <svg class="inline w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,7 +83,7 @@
                         </svg>
                         +62 711 123 4567
                     </li>
-                    <li>
+                    {{-- <li>
                         <svg class="inline w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -90,14 +92,14 @@
                         </svg>
                         Jl. Sudirman No. 123<br>
                         <span class="ml-6">Palembang, Sumatera Selatan</span>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} Liputan Palembang. All rights reserved. |
+            <p>&copy; {{ date('Y') }} Fokus Kito. All rights reserved. |
                 <a href="#" class="footer-bottom-link">Privacy Policy</a> |
                 <a href="#" class="footer-bottom-link">Terms of Service</a>
             </p>
@@ -117,6 +119,23 @@
         color: white;
         margin-top: 6rem;
     }
+
+    .logo-wrapper {
+        background: white;
+
+        padding: 0px 50px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    #logo_navbar {
+        transform-origin: center;
+        display: block;
+    }
+
 
     .footer-content {
         max-width: 1400px;
