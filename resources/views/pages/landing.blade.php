@@ -1,6 +1,6 @@
     @extends('layouts.app')
 
-    @section('title', 'fokus kito news')
+    @section('title', 'Fokus Kito')
 
     @section('content')
 
