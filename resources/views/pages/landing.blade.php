@@ -1,6 +1,6 @@
     @extends('layouts.app')
 
-    @section('title', 'Berita Liputan Palembang')
+    @section('title', 'fokus kito news')
 
     @section('content')
 
