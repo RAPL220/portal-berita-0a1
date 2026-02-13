@@ -1,5 +1,5 @@
 <!-- Navigation Bar -->
-<nav class="navbar sticky top-0 z-50 bg-white shadow-sm" id="navbar">
+<nav class="navbar sticky top-0 z-50 bg-dark shadow-sm" id="navbar">
     <div class="nav-container flex justify-between py-5 px-4 lg:px-14">
         <div class="flex gap-10 w-full items-center">
             <!-- Logo dan Menu Toggle -->
@@ -7,14 +7,14 @@
                 <!-- Logo -->
                 <a href="{{ route('landing') }}" class="flex items-center gap-2">
                     <div class="logo-section">
-                        {{-- <div class="logo">L</div> --}}
-                        <img id="logo_navbar" src="{{ asset('/asset/img/logo_fokuskito.png') }}" alt="Logo">
-                        {{-- <span class="logo-text">Liputan Palembang</span> --}}
+                        <div class="logo-wrapper">
+                            <img id="logo_navbar" src="{{ asset('/asset/img/logo_fokuskito.png') }}" alt="Logo">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="menu-toggle lg:hidden text-primary text-2xl focus:outline-none" id="menu-toggle">
+                <button class="menu-toggle lg:hidden text-white text-2xl focus:outline-none" id="menu-toggle">
                     ☰
                 </button>
             </div>
@@ -38,12 +38,17 @@
             </div>
         </div>
 
-        <!-- Search and Login -->
-        <div class="nav-actions hidden lg:flex items-center gap-2 w-full lg:w-auto">
+        <!-- Date, Search and Login -->
+        <div class="nav-actions hidden lg:flex items-center gap-4 w-full lg:w-auto">
+            <!-- Date Display -->
+            <div class="date-display text-white font-semibold text-sm whitespace-nowrap">
+                <span id="currentDate"></span>
+            </div>
+
             <div class="search-box relative w-full lg:w-auto">
                 <form action="{{ route('news.index') }}" method="GET">
                     <input name="search" type="text" placeholder="Cari berita..."
-                        class="search-input border border-slate-300 rounded-full px-4 py-2 pl-10 w-full text-sm font-normal lg:w-auto focus:outline-none focus:ring-primary focus:border-primary"
+                        class="search-input border border-slate-600 rounded-full px-4 py-2 pl-10 w-full text-sm font-normal lg:w-auto focus:outline-none focus:ring-primary focus:border-primary"
                         id="searchInput" />
                 </form>
                 <!-- Search Icon -->
@@ -66,28 +71,45 @@
     :root {
         --primary: #FF6B35;
         --primary-dark: #E85A2A;
+        --bg-dark: #1A1A1A;
+        --bg-dark-secondary: #2D2D2D;
         --text-dark: #1A1A1A;
         --text-gray: #64748B;
         --border-light: #E2E8F0;
     }
 
-    #logo_navbar {
-        max-height: 40px;
-        width: auto;
-        transform: scale(2.4);
-        transform-origin: left center;
+    /* Logo Wrapper - Matching Footer */
+    .logo-wrapper {
+        background: white;
+        padding: 0px 30px !important;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    /* Navbar Styles */
+    #logo_navbar {
+        max-height: 55px;
+        width: auto;
+        transform: scale(1.8);
+        transform-origin: center;
+        display: block;
+    }
+
+    /* Navbar Styles - Dark Background */
     .navbar {
-        background: rgba(255, 255, 255, 0.95);
+        background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
         backdrop-filter: blur(10px);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         transition: all 0.3s ease;
     }
 
+    .nav-container {
+        height: 72px;
+    }
+
     .navbar.scrolled {
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
     }
 
     .logo-section {
@@ -96,37 +118,17 @@
         gap: 0.75rem;
     }
 
-    .logo {
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 900;
-        font-size: 1.5rem;
-    }
-
-    .logo-text {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.35rem;
-        font-weight: 900;
-        color: var(--text-dark);
-        letter-spacing: -0.5px;
-    }
-
     .nav-menu {
         display: flex;
         list-style: none;
         gap: 2.5rem;
     }
 
+    /* Nav Links - White Text with Bold */
     .nav-link {
         text-decoration: none;
-        color: var(--text-dark);
-        font-weight: 500;
+        color: white;
+        font-weight: 700;
         font-size: 0.95rem;
         transition: color 0.3s ease;
         position: relative;
@@ -149,24 +151,41 @@
         border-radius: 2px;
     }
 
+    /* Date Display */
+    .date-display {
+        padding: 0.65rem 1rem;
+        font-size: 12px;
+        white-space: nowrap;
+        /* background: rgba(255, 255, 255, 0.1); */
+        border-radius: 50px;
+        /* border: 1px solid rgba(255, 255, 255, 0.2); */
+    }
+
     .search-box {
         position: relative;
     }
 
     .search-input {
         padding: 0.65rem 1rem 0.65rem 2.5rem;
-        border: 2px solid var(--border-light);
+        border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 50px;
         font-size: 0.9rem;
         width: 240px;
         transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
     }
 
     .search-input:focus {
         outline: none;
         border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
         width: 280px;
+        background: rgba(255, 255, 255, 0.15);
     }
 
     .search-icon {
@@ -174,7 +193,7 @@
         left: 1rem;
         top: 50%;
         transform: translateY(-50%);
-        color: var(--text-gray);
+        color: rgba(255, 255, 255, 0.6);
     }
 
     .btn-login {
@@ -201,7 +220,7 @@
         background: none;
         border: none;
         cursor: pointer;
-        color: var(--primary);
+        color: white;
     }
 
     #menu {
@@ -215,8 +234,8 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             padding: 2rem;
         }
 
@@ -258,5 +277,27 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Update Date and Time
+        function updateDate() {
+            const dateElement = document.getElementById('currentDate');
+            const now = new Date();
+
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+
+            dateElement.textContent = ` ${dayName}, ${day} ${month} `;
+        }
+
+        updateDate();
+        // Update every minute
+        setInterval(updateDate, 60000);
     });
 </script>
