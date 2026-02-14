@@ -33,7 +33,7 @@
             <!-- Desktop: Date, Search and Login -->
             <div class="nav-actions hidden lg:flex items-center gap-4 w-full lg:w-auto">
                 <!-- Date Display -->
-                <div class="date-display text-white font-semibold text-sm whitespace-nowrap">
+                <div class="date-display  text-white font-semibold text-sm whitespace-nowrap">
                     <span id="currentDate"></span>
                 </div>
 
@@ -57,9 +57,15 @@
                 </a>
             </div>
 
+            <div class="date-display-mobile text-white font-semibold text-xs flex-shrink-0  lg:hidden ">
+                <span id="currentDateMobile" style="white-space: nowrap;"></span>
+            </div>
             <!-- Mobile: Hamburger Menu Button -->
             <button class="menu-toggle lg:hidden text-white text-2xl focus:outline-none ml-auto" id="menu-toggle">
-                ☰
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
             </button>
         </div>
 
@@ -94,16 +100,12 @@
                     <input name="search" type="text" placeholder="Cari berita..."
                         class="search-input-mobile border border-slate-600 rounded-full px-3 py-2.5 pl-10 w-full text-sm font-normal focus:outline-none focus:ring-primary focus:border-primary" />
                 </form>
+                <!-- Search Icon -->
 
             </div>
 
-            <!-- Row 2: Date (Left) and Login Button (Right) -->
-            <div class="flex items-center justify-between gap-3">
-                <!-- Date Display Mobile -->
-                <div class="date-display-mobile text-white font-semibold text-xs flex-shrink-0">
-                    <span id="currentDateMobile"></span>
-                </div>
-
+            <!-- Row 2: Login Button -->
+            <div class="flex items-center justify-between gap-3" style="justify-content: end">
                 <!-- Login Button -->
                 <a href="/admin"
                     class="btn-login-mobile bg-primary px-6 py-2.5 rounded-full text-white font-semibold text-sm text-center whitespace-nowrap">
@@ -209,6 +211,7 @@
         border-radius: 20px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         font-size: 11px;
+        margin-right: 10px
     }
 
     /* Search Box - Desktop */
@@ -435,15 +438,15 @@
         }
     }
 
-    /* Mobile Specific Styles */
+    /* Mobile Specific Styles - LOGO LEBIH BESAR */
     @media (max-width: 1024px) {
         #logo_navbar {
-            max-height: 40px;
-            transform: scale(1.5);
+            max-height: 45px;
+            transform: scale(2.2);
         }
 
         .logo-wrapper {
-            padding: 0px 20px !important;
+            padding: 5px 35px !important;
         }
 
         .nav-top {
