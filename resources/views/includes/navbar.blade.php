@@ -1,9 +1,9 @@
 <!-- Navigation Bar -->
 <nav class="navbar sticky top-0 z-50 bg-dark shadow-sm" id="navbar">
-    <div class="nav-container flex justify-between py-5 px-4 lg:px-14">
-        <div class="flex gap-10 w-full items-center">
-            <!-- Logo dan Menu Toggle -->
-            <div class="flex items-center justify-between w-full lg:w-auto">
+    <div class="nav-container">
+        <!-- Top Row: Logo & Hamburger (Mobile) / Full Nav (Desktop) -->
+        <div class="nav-top flex justify-between items-center py-3 px-4 lg:py-5 lg:px-14">
+            <div class="flex gap-10 w-full items-center">
                 <!-- Logo -->
                 <a href="{{ route('landing') }}" class="flex items-center gap-2">
                     <div class="logo-section">
@@ -13,56 +13,103 @@
                     </div>
                 </a>
 
-                <!-- Mobile Menu Toggle -->
-                <button class="menu-toggle lg:hidden text-white text-2xl focus:outline-none" id="menu-toggle">
-                    ☰
-                </button>
+                <!-- Desktop Navigation Menu -->
+                <div class="hidden lg:flex flex-row items-center gap-10 w-full">
+                    <ul class="nav-menu flex flex-row items-center gap-4 font-medium text-base w-full">
+                        <li>
+                            <a href="{{ route('landing') }}"
+                                class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a>
+                        </li>
+                        @foreach (\App\Models\Categories::all() as $category)
+                            <li>
+                                <a href="{{ route('news.category', $category->slug) }}"
+                                    class="nav-link {{ request()->is($category->slug) ? 'active' : '' }}">{{ $category->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
 
-            <!-- Navigation Menu -->
-            <div id="menu"
-                class="hidden lg:flex flex-col lg:flex-row lg:items-center lg:gap-10 w-full lg:w-auto mt-5 lg:mt-0">
-                <ul
-                    class="nav-menu flex flex-col lg:flex-row items-start lg:items-center gap-4 font-medium text-base w-full lg:w-auto">
+            <!-- Desktop: Date, Search and Login -->
+            <div class="nav-actions hidden lg:flex items-center gap-4 w-full lg:w-auto">
+                <!-- Date Display -->
+                <div class="date-display text-white font-semibold text-sm whitespace-nowrap">
+                    <span id="currentDate"></span>
+                </div>
+
+                <div class="search-box relative w-full lg:w-auto">
+                    <form action="{{ route('news.index') }}" method="GET">
+                        <input name="search" type="text" placeholder="Cari berita..."
+                            class="search-input border border-slate-600 rounded-full px-4 py-2 pl-10 w-full text-sm font-normal lg:w-auto focus:outline-none focus:ring-primary focus:border-primary"
+                            id="searchInput" />
+                    </form>
+                    <!-- Search Icon -->
+                    <span class="search-icon absolute inset-y-0 left-3 flex items-center text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </span>
+                </div>
+                <a href="/admin"
+                    class="btn-login bg-primary px-8 py-2 rounded-full text-white font-semibold h-fit text-sm lg:text-base">
+                    Masuk
+                </a>
+            </div>
+
+            <!-- Mobile: Hamburger Menu Button -->
+            <button class="menu-toggle lg:hidden text-white text-2xl focus:outline-none ml-auto" id="menu-toggle">
+                ☰
+            </button>
+        </div>
+
+        <!-- Mobile Row 2: Scrollable Categories -->
+        <div class="mobile-categories lg:hidden pb-3 relative">
+            <div class="categories-scroll-container overflow-x-auto px-4" id="categoriesContainer">
+                <ul class="categories-scroll flex gap-4 whitespace-nowrap">
                     <li>
                         <a href="{{ route('landing') }}"
-                            class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a>
+                            class="category-link {{ request()->is('/') ? 'active' : '' }}">BERANDA</a>
                     </li>
                     @foreach (\App\Models\Categories::all() as $category)
                         <li>
-                            <a
-                                href="{{ route('news.category', $category->slug) }}"class="nav-link {{ request()->is($category->slug) ? 'active' : '' }}">{{ $category->title }}</a>
+                            <a href="{{ route('news.category', $category->slug) }}"
+                                class="category-link {{ request()->is($category->slug) ? 'active' : '' }}">{{ strtoupper($category->title) }}</a>
                         </li>
                     @endforeach
                 </ul>
             </div>
+            <!-- Scroll Indicators (Gradients) -->
+            <div class="scroll-indicator left-indicator" id="leftIndicator"></div>
+            <div class="scroll-indicator right-indicator" id="rightIndicator"></div>
         </div>
+    </div>
 
-        <!-- Date, Search and Login -->
-        <div class="nav-actions hidden lg:flex items-center gap-4 w-full lg:w-auto">
-            <!-- Date Display -->
-            <div class="date-display text-white font-semibold text-sm whitespace-nowrap">
-                <span id="currentDate"></span>
-            </div>
-
-            <div class="search-box relative w-full lg:w-auto">
+    <!-- Mobile Dropdown Menu (when hamburger clicked) -->
+    <div id="mobile-menu" class="mobile-dropdown hidden lg:hidden">
+        <div class="mobile-menu-content p-4">
+            <!-- Row 1: Search Box -->
+            <div class="search-box-mobile relative mb-3">
                 <form action="{{ route('news.index') }}" method="GET">
                     <input name="search" type="text" placeholder="Cari berita..."
-                        class="search-input border border-slate-600 rounded-full px-4 py-2 pl-10 w-full text-sm font-normal lg:w-auto focus:outline-none focus:ring-primary focus:border-primary"
-                        id="searchInput" />
+                        class="search-input-mobile border border-slate-600 rounded-full px-3 py-2.5 pl-10 w-full text-sm font-normal focus:outline-none focus:ring-primary focus:border-primary" />
                 </form>
-                <!-- Search Icon -->
-                <span class="search-icon absolute inset-y-0 left-3 flex items-center text-slate-400">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </span>
+
             </div>
-            <a href="/admin"
-                class="btn-login bg-primary px-8 py-2 rounded-full text-white font-semibold h-fit text-sm lg:text-base">
-                Masuk
-            </a>
+
+            <!-- Row 2: Date (Left) and Login Button (Right) -->
+            <div class="flex items-center justify-between gap-3">
+                <!-- Date Display Mobile -->
+                <div class="date-display-mobile text-white font-semibold text-xs flex-shrink-0">
+                    <span id="currentDateMobile"></span>
+                </div>
+
+                <!-- Login Button -->
+                <a href="/admin"
+                    class="btn-login-mobile bg-primary px-6 py-2.5 rounded-full text-white font-semibold text-sm text-center whitespace-nowrap">
+                    Masuk
+                </a>
+            </div>
         </div>
     </div>
 </nav>
@@ -78,7 +125,7 @@
         --border-light: #E2E8F0;
     }
 
-    /* Logo Wrapper - Matching Footer */
+    /* Logo Wrapper */
     .logo-wrapper {
         background: white;
         padding: 0px 30px !important;
@@ -96,16 +143,12 @@
         display: block;
     }
 
-    /* Navbar Styles - Dark Background */
+    /* Navbar Styles */
     .navbar {
         background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
         backdrop-filter: blur(10px);
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         transition: all 0.3s ease;
-    }
-
-    .nav-container {
-        height: 72px;
     }
 
     .navbar.scrolled {
@@ -124,7 +167,7 @@
         gap: 2.5rem;
     }
 
-    /* Nav Links - White Text with Bold */
+    /* Nav Links - Desktop */
     .nav-link {
         text-decoration: none;
         color: white;
@@ -151,16 +194,24 @@
         border-radius: 2px;
     }
 
-    /* Date Display */
+    /* Date Display - Desktop */
     .date-display {
         padding: 0.65rem 1rem;
         font-size: 12px;
         white-space: nowrap;
-        /* background: rgba(255, 255, 255, 0.1); */
         border-radius: 50px;
-        /* border: 1px solid rgba(255, 255, 255, 0.2); */
     }
 
+    /* Date Display - Mobile */
+    .date-display-mobile {
+        padding: 0.5rem 0.75rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 11px;
+    }
+
+    /* Search Box - Desktop */
     .search-box {
         position: relative;
     }
@@ -196,6 +247,120 @@
         color: rgba(255, 255, 255, 0.6);
     }
 
+    /* Search Box - Mobile */
+    .search-box-mobile {
+        position: relative;
+    }
+
+    .search-input-mobile {
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .search-input-mobile::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .search-input-mobile:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .search-icon-mobile {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Mobile Categories Scrollable */
+    .mobile-categories {
+        position: relative;
+    }
+
+    .categories-scroll-container {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-behavior: smooth;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .categories-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .categories-scroll {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .category-link {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+    }
+
+    .category-link:hover,
+    .category-link.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+    }
+
+    /* Scroll Indicators (Gradient overlays) */
+    .scroll-indicator {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 30px;
+        pointer-events: none;
+        z-index: 10;
+        transition: opacity 0.3s ease;
+    }
+
+    .left-indicator {
+        left: 0;
+        background: linear-gradient(to right,
+                var(--bg-dark-secondary) 0%,
+                rgba(45, 45, 45, 0.8) 50%,
+                transparent 100%);
+        opacity: 0;
+    }
+
+    .right-indicator {
+        right: 0;
+        background: linear-gradient(to left,
+                var(--bg-dark-secondary) 0%,
+                rgba(45, 45, 45, 0.8) 50%,
+                transparent 100%);
+        opacity: 1;
+    }
+
+    .left-indicator.show {
+        opacity: 1;
+    }
+
+    .right-indicator.hide {
+        opacity: 0;
+    }
+
+    /* Login Button */
     .btn-login {
         padding: 0.65rem 2rem;
         background: var(--primary);
@@ -216,55 +381,103 @@
         box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
     }
 
+    .btn-login-mobile {
+        padding: 0.65rem 2rem;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-login-mobile:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Hamburger Menu */
     .menu-toggle {
         background: none;
         border: none;
         cursor: pointer;
         color: white;
+        font-size: 24px;
     }
 
-    #menu {
-        margin-left: 50px;
+    /* Mobile Dropdown Menu */
+    .mobile-dropdown {
+        background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 
-    /* Mobile Menu Styles */
+    .mobile-dropdown.active {
+        display: block !important;
+    }
+
+    .mobile-menu-content {
+        animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Mobile Specific Styles */
     @media (max-width: 1024px) {
-        #menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: 2rem;
+        #logo_navbar {
+            max-height: 40px;
+            transform: scale(1.5);
         }
 
-        #menu.active {
-            display: flex !important;
+        .logo-wrapper {
+            padding: 0px 20px !important;
         }
 
-        .nav-menu {
-            flex-direction: column;
-            width: 100%;
-            gap: 1.5rem;
+        .nav-top {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .nav-link {
-            width: 100%;
-            padding: 0.75rem 0;
+        .nav-container {
+            padding: 0;
+        }
+
+        .nav-top {
+            padding: 0.75rem 1rem;
+        }
+    }
+
+    /* Hide mobile elements on desktop */
+    @media (min-width: 1025px) {
+
+        .mobile-categories,
+        .mobile-dropdown {
+            display: none !important;
         }
     }
 </style>
 
 <script>
-    // Mobile Menu Toggle
     document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menu-toggle');
-        const menu = document.getElementById('menu');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (menuToggle) {
+        if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', function() {
-                menu.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
             });
         }
 
@@ -278,9 +491,49 @@
             }
         });
 
+        // Categories Horizontal Scroll Indicators
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        const leftIndicator = document.getElementById('leftIndicator');
+        const rightIndicator = document.getElementById('rightIndicator');
+
+        function updateScrollIndicators() {
+            if (!categoriesContainer) return;
+
+            const scrollLeft = categoriesContainer.scrollLeft;
+            const scrollWidth = categoriesContainer.scrollWidth;
+            const clientWidth = categoriesContainer.clientWidth;
+            const maxScroll = scrollWidth - clientWidth;
+
+            // Show/hide left indicator
+            if (scrollLeft > 10) {
+                leftIndicator.classList.add('show');
+            } else {
+                leftIndicator.classList.remove('show');
+            }
+
+            // Show/hide right indicator
+            if (scrollLeft < maxScroll - 10) {
+                rightIndicator.classList.remove('hide');
+            } else {
+                rightIndicator.classList.add('hide');
+            }
+        }
+
+        if (categoriesContainer) {
+            // Update indicators on scroll
+            categoriesContainer.addEventListener('scroll', updateScrollIndicators);
+
+            // Initial check
+            updateScrollIndicators();
+
+            // Re-check on window resize
+            window.addEventListener('resize', updateScrollIndicators);
+        }
+
         // Update Date and Time
         function updateDate() {
             const dateElement = document.getElementById('currentDate');
+            const dateElementMobile = document.getElementById('currentDateMobile');
             const now = new Date();
 
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -293,7 +546,14 @@
             const month = months[now.getMonth()];
             const year = now.getFullYear();
 
-            dateElement.textContent = ` ${dayName}, ${day} ${month} `;
+            const dateText = `${dayName}, ${day} ${month}`;
+
+            if (dateElement) {
+                dateElement.textContent = dateText;
+            }
+            if (dateElementMobile) {
+                dateElementMobile.textContent = dateText;
+            }
         }
 
         updateDate();

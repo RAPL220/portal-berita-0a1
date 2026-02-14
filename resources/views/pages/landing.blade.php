@@ -4,8 +4,76 @@
 
 @section('content')
 
+    <!-- Top Banner Section -->
+    <section class="top-banner-section">
+        <div class="banner-container">
+            <img src="{{ asset('/asset/img/banner_main.jpeg') }}" alt="Banner Utama" class="banner-image">
+        </div>
+    </section>
 
     <style>
+        /* Top Banner Styles */
+        .top-banner-section {
+            width: 100%;
+            margin-top: 0;
+            background: #fff;
+            padding-top: 1rem;
+        }
+
+        .banner-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        /* Responsive Banner */
+        @media (max-width: 1024px) {
+            .banner-container {
+                padding: 0 1.5rem;
+            }
+
+            .banner-image {
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-banner-section {
+                padding-top: 0.75rem;
+            }
+
+            .banner-container {
+                padding: 0 1rem;
+            }
+
+            .banner-image {
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .top-banner-section {
+                padding-top: 0.5rem;
+            }
+
+            .banner-container {
+                padding: 0 0.75rem;
+            }
+
+            .banner-image {
+                border-radius: 6px;
+            }
+        }
+
         :root {
             --primary: #9CCFFF;
             --primary-dark: #0d5191;
