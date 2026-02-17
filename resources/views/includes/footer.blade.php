@@ -12,8 +12,8 @@
                     {{-- <span class="footer-logo-text">Liputan Palembang</span> --}}
                 </div>
                 <p class="footer-description">
-                    Portal berita terpercaya yang menyajikan informasi terkini seputar Palembang dan Sumatera Selatan.
-                    Kami berkomitmen memberikan berita berkualitas dan akurat untuk Anda.
+                    Sumber berita nasional terpercaya yang menghadirkan informasi terkini, tajam, dan relevan untuk
+                    masyarakat Indonesia.
                 </p>
                 {{-- <div class="social-links">
                     <a href="#" class="social-link" aria-label="Facebook">
@@ -57,9 +57,9 @@
             <div class="footer-section">
                 <h3>Tentang Kami</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Redaksi</a></li>
+                    <li><a href="#">Berita Terkini</a></li>
                     {{-- <li><a href="#">Pedoman Media Siber</a></li> --}}
-                    <li><a href="#">Kontak</a></li>
+                    {{-- <li><a href="#">Kontak</a></li> --}}
                     {{-- <li><a href="#">Karir</a></li> --}}
                     {{-- <li><a href="#">Advertise</a></li> --}}
                 </ul>
@@ -81,7 +81,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
-                        +62 711 123 4567
+                        +62 896-1082-9004
                     </li>
                     {{-- <li>
                         <svg class="inline w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
