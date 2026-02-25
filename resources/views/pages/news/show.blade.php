@@ -86,7 +86,6 @@
             border: 2px solid var(--border-light);
         }
 
-        /* Top accent bar */
         .article-main-inner {
             border-top: 5px solid var(--primary-dark);
             padding: 2.5rem;
@@ -171,7 +170,7 @@
             flex-shrink: 0;
         }
 
-        /* Featured Image — KONSISTEN, selalu sama tingginya */
+        /* Featured Image */
         .article-featured-image-wrapper {
             width: 100%;
             height: 480px;
@@ -195,7 +194,7 @@
             transform: scale(1.02);
         }
 
-        /* Content */
+        /* ==================== ARTICLE CONTENT — FIXED LIST RENDERING ==================== */
         .article-content {
             font-size: 1.05rem;
             line-height: 1.95;
@@ -233,16 +232,50 @@
             margin-bottom: 0.6rem;
         }
 
+        /* ===== BULLET / LIST FIX ===== */
         .article-content ul,
         .article-content ol {
-            padding-left: 1.75rem;
-            margin-bottom: 1.5rem;
+            padding-left: 2rem !important;
+            margin-bottom: 1.5rem !important;
+            margin-top: 0.5rem !important;
+        }
+
+        .article-content ul {
+            list-style-type: disc !important;
+        }
+
+        .article-content ul ul {
+            list-style-type: circle !important;
+            margin-bottom: 0 !important;
+        }
+
+        .article-content ul ul ul {
+            list-style-type: square !important;
+        }
+
+        .article-content ol {
+            list-style-type: decimal !important;
+        }
+
+        .article-content ol ol {
+            list-style-type: lower-alpha !important;
+            margin-bottom: 0 !important;
         }
 
         .article-content li {
-            margin-bottom: 0.6rem;
-            line-height: 1.8;
+            display: list-item !important;
+            margin-bottom: 0.5rem !important;
+            line-height: 1.8 !important;
+            color: #2d3748;
         }
+
+        .article-content li::marker {
+            /* buletin untuk content */
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        /* ===== END BULLET / LIST FIX ===== */
 
         .article-content blockquote {
             border-left: 5px solid var(--primary-dark);
@@ -253,6 +286,10 @@
             font-style: italic;
             color: var(--text-gray);
             font-size: 1.05rem;
+        }
+
+        .article-content blockquote p {
+            margin-bottom: 0;
         }
 
         .article-content img {
@@ -272,6 +309,72 @@
 
         .article-content a:hover {
             color: var(--primary-mid);
+        }
+
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .article-content table th {
+            background: var(--primary-dark);
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .article-content table td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .article-content table tr:nth-child(even) td {
+            background: var(--bg-soft);
+        }
+
+        .article-content hr {
+            border: none;
+            border-top: 2px solid var(--border-light);
+            margin: 2rem 0;
+        }
+
+        .article-content strong {
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+
+        .article-content em {
+            font-style: italic;
+        }
+
+        .article-content pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .article-content code {
+            background: var(--bg-soft);
+            color: var(--primary-dark);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .article-content pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
         }
 
         /* ==================== TAG SECTION ==================== */
@@ -437,7 +540,6 @@
             gap: 1.75rem;
         }
 
-        /* Widget */
         .sidebar-widget {
             background: var(--bg-white);
             border-radius: 18px;
@@ -502,7 +604,6 @@
             color: var(--primary-dark);
         }
 
-        /* Gambar sidebar — KONSISTEN ukurannya */
         .sidebar-article-image-wrapper {
             width: 90px;
             height: 90px;
@@ -566,27 +667,6 @@
             display: flex;
             align-items: center;
             gap: 0.3rem;
-        }
-
-        /* ==================== READ MORE / RELATED ==================== */
-        .related-section {
-            margin-top: 3rem;
-        }
-
-        .related-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--text-dark);
-            margin-bottom: 0.4rem;
-        }
-
-        .related-bar {
-            width: 48px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
-            border-radius: 99px;
-            margin-bottom: 1.75rem;
         }
 
         /* ==================== RESPONSIVE ==================== */
@@ -758,7 +838,7 @@
                             </div>
                         </div>
 
-                        <!-- Featured Image — tinggi fixed agar konsisten -->
+                        <!-- Featured Image -->
                         <div class="article-featured-image-wrapper">
                             <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
                                 class="article-featured-image">
@@ -852,7 +932,6 @@
                         <div class="widget-content">
                             @foreach ($sideArticles as $sideArticle)
                                 <a href="{{ route('news.show', $sideArticle->slug) }}" class="sidebar-article">
-                                    {{-- Wrapper dengan ukuran fixed agar gambar selalu rata --}}
                                     <div class="sidebar-article-image-wrapper">
                                         <img src="{{ asset('storage/' . $sideArticle->thumbnail) }}"
                                             alt="{{ $sideArticle->title }}" class="sidebar-article-image">
