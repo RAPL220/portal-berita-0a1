@@ -231,7 +231,6 @@
             flex-direction: column;
             height: 100%;
             color: inherit;
-
         }
 
         .article-card:hover {
@@ -242,8 +241,6 @@
 
         .article-image-wrapper {
             position: relative;
-            overflow: hidden;
-            position: relative;
             width: 100%;
             height: 220px;
             overflow: hidden;
@@ -252,12 +249,9 @@
 
         .article-image {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
         .article-card:hover .article-image {
@@ -278,11 +272,10 @@
         }
 
         .article-content {
-            padding: 1.5rem;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
             flex: 1;
-            padding: 1rem;
         }
 
         .article-title {
@@ -296,6 +289,7 @@
         .article-date {
             color: var(--text-gray);
             font-size: 0.85rem;
+            margin-top: auto;
         }
 
         /* Latest News Layout */
@@ -344,25 +338,25 @@
             line-height: 1.3;
         }
 
+        /* ===== PERBAIKAN UTAMA: excerpt dengan strip_tags ===== */
         .main-news-excerpt {
             font-size: 0.9rem;
             color: var(--text-gray);
             display: -webkit-box;
             -webkit-line-clamp: 3;
-            /* jumlah baris */
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.6;
         }
-
 
         .news-excerpt-2line {
             font-size: 0.9rem;
             color: var(--text-gray);
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            /* jumlah baris */
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.6;
         }
 
         .side-news {
@@ -394,7 +388,6 @@
             color: var(--text-dark);
             line-height: 1.4;
         }
-
 
         .hero-slide {
             position: relative;
@@ -477,6 +470,7 @@
             height: 140px;
             object-fit: cover;
             border-radius: 12px;
+            flex-shrink: 0;
         }
 
         .news-meta {
@@ -496,25 +490,26 @@
         }
 
         .news-title {
-            /* font-family: 'Playfair Display', serif; */
             font-family: Inter, system-ui, sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-
         }
 
+        /* ===== PERBAIKAN UTAMA: news-excerpt harus plain text ===== */
         .news-excerpt {
             font-size: 0.9rem;
             color: var(--text-gray);
             display: -webkit-box;
             -webkit-line-clamp: 3;
-            /* jumlah baris */
             -webkit-box-orient: vertical;
             overflow: hidden;
+            line-height: 1.6;
+            /* Pastikan tidak ada child element yg memecah clamp */
+            word-break: break-word;
         }
 
-        /* Sidebar news - Updated with soft gray background */
+        /* Sidebar news */
         .sidebar {
             border: 3px solid var(--border-medium);
             border-radius: 16px;
@@ -527,7 +522,6 @@
 
         .sidebar h3 {
             font-family: 'Playfair Display', serif;
-
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 1.25rem;
@@ -549,6 +543,7 @@
             height: 70px;
             border-radius: 10px;
             object-fit: cover;
+            flex-shrink: 0;
         }
 
         .side-title {
@@ -560,7 +555,6 @@
             font-size: 0.7rem;
             color: var(--text-gray);
         }
-
 
         .section {
             display: block;
@@ -636,14 +630,9 @@
                 width: 100%;
                 height: 200px;
             }
-
-
         }
 
         @media (max-width: 640px) {
-
-
-
             .news-item {
                 flex-direction: column;
             }
@@ -668,7 +657,6 @@
             .main-news-image {
                 height: 250px;
             }
-
 
             .news-item {
                 flex-direction: column;
@@ -743,15 +731,15 @@
                     <div class="swiper-slide">
                         <a href="{{ route('news.show', $articleBanner->slug) }}" class="block">
                             <div class="relative flex flex-col gap-1 justify-end p-3 h-72 rounded-xl bg-cover bg-center overflow-hidden"
-                                style=" background-image:url('{{ asset('storage/' . $articleBanner->thumbnail) }}') ">
+                                style="background-image:url('{{ asset('storage/' . $articleBanner->thumbnail) }}')">
                                 <div
                                     class="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0)] rounded-b-xl">
                                 </div>
                                 <div class="relative z-10 mb-3" style="padding-left: 10px;">
                                     <div class="bg-primary text-white text-xs rounded-lg w-fit px-3 py-1 font-normal mt-3">
-                                        {{ $articleBanner->category->title }}</div>
+                                        {{ $articleBanner->category->title }}
+                                    </div>
                                     <p class="text-3xl font-semibold text-white mt-1">{{ $articleBanner->title }}</p>
-
                                     <div class="flex items-center gap-1 mt-1">
                                         <img src="{{ asset('storage/' . $articleBanner->author->avatar) }}" alt=""
                                             class="w-5 h-5 rounded-full">
@@ -772,29 +760,26 @@
             <div>
                 <h2 class="section-title">Berita Terbaru</h2>
             </div>
-            <div class="section-header">
+            <div class="section-header"></div>
 
-            </div>
             {{-- MAIN --}}
             <div class="news-list">
                 @foreach ($news as $item)
                     <div class="list-border-news">
                         <a href="{{ route('news.show', $item->slug) }}" class="news-item">
-                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="">
+                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}">
                             <div>
                                 <div class="news-meta">
                                     <span class="news-category">{{ $item->category->title }}</span>
                                     • {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                                 </div>
                                 <h3 class="news-title">{{ $item->title }}</h3>
-                                <div class="news-excerpt">
-                                    {!! $item->content !!}
-                                </div>
+                                {{-- PERBAIKAN: strip_tags() menghapus semua tag HTML sehingga -webkit-line-clamp bekerja dengan benar --}}
+                                <p class="news-excerpt">{{ Str::limit(strip_tags($item->content), 200) }}</p>
                             </div>
                         </a>
                     </div>
                 @endforeach
-
             </div>
 
             {{-- SIDEBAR --}}
@@ -802,13 +787,12 @@
                 <h3>Terpopuler</h3>
                 @foreach ($mostViewedDownList as $side)
                     <a href="{{ route('news.show', $side->slug) }}" class="side-item">
-                        <img src="{{ asset('storage/' . $side->thumbnail) }}" alt="">
+                        <img src="{{ asset('storage/' . $side->thumbnail) }}" alt="{{ $side->title }}">
                         <div>
                             <p class="side-title news-title">{{ $side->title }}</p>
                             <span class="side-time">
-                                <div class="news-excerpt-2line">
-                                    {!! $side->content !!}
-                                </div>
+                                {{-- PERBAIKAN: strip_tags() untuk sidebar juga --}}
+                                <p class="news-excerpt-2line">{{ Str::limit(strip_tags($side->content), 100) }}</p>
                                 {{ \Carbon\Carbon::parse($side->created_at)->diffForHumans() }}
                             </span>
                         </div>
@@ -836,14 +820,16 @@
                         <span class="article-category" style="position: absolute; top: 1.5rem; left: 1.5rem; z-index: 10;">
                             {{ $mostViewed[0]->category->title }}
                         </span>
-                        <img src="{{ asset('storage/' . $mostViewed[0]->thumbnail) }}" alt="{{ $news[0]->title }}"
+                        <img src="{{ asset('storage/' . $mostViewed[0]->thumbnail) }}" alt="{{ $mostViewed[0]->title }}"
                             class="main-news-image">
                     </div>
                     <div class="main-news-content">
                         <h2 class="main-news-title">{{ $mostViewed[0]->title }}</h2>
-                        <div class="main-news-excerpt">{!! $mostViewed[0]->content !!}</div>
+                        {{-- PERBAIKAN: strip_tags() --}}
+                        <p class="main-news-excerpt">{{ Str::limit(strip_tags($mostViewed[0]->content), 300) }}</p>
                         <p class="article-date">
-                            {{ \Carbon\Carbon::parse($mostViewed[0]->created_at)->format('d F Y') }}</p>
+                            {{ \Carbon\Carbon::parse($mostViewed[0]->created_at)->format('d F Y') }}
+                        </p>
                     </div>
                 </a>
             @endif
@@ -859,7 +845,8 @@
                                 {{ $new->category->title }}
                             </span>
                             <h3 class="news-item-title">{{ $new->title }}</h3>
-                            <div class="news-excerpt">{!! $new->content !!}</div>
+                            {{-- PERBAIKAN: strip_tags() --}}
+                            <p class="news-excerpt">{{ Str::limit(strip_tags($new->content), 150) }}</p>
                         </div>
                     </a>
                 @endforeach
@@ -872,7 +859,7 @@
     <section class="section">
         <div class="section-header">
             <div>
-                <h2 class="section-title">Berita Unggulan
+                <h2 class="section-title">Berita Unggulan</h2>
             </div>
             <a href="{{ route('news.index') }}" class="btn-view-all">Lihat Semua</a>
         </div>
@@ -889,11 +876,9 @@
                         </div>
                         <div class="article-content">
                             <h3 class="article-title news-title">{{ $featured->title }}</h3>
-                            <div class="news-excerpt">
-                                {!! $featured->content !!}
-                            </div>
-                            <p class="article-date">{{ \Carbon\Carbon::parse($featured->created_at)->format('d F Y') }}
-                            </p>
+                            {{-- PERBAIKAN: strip_tags() --}}
+                            <p class="news-excerpt">{{ Str::limit(strip_tags($featured->content), 150) }}</p>
+                            <p class="article-date">{{ \Carbon\Carbon::parse($featured->created_at)->format('d F Y') }}</p>
                         </div>
                     </a>
                 </div>
@@ -906,7 +891,6 @@
     <!-- Swiper JS Initialization -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Initialize Swiper
         const swiper = new Swiper('.mySwiper', {
             slidesPerView: 1,
             spaceBetween: 0,
