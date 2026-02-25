@@ -447,7 +447,7 @@
         }
 
         .widget-header {
-            background: linear-gradient(135deg, var(--dark-navy), var(--primary-mid));
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-dark));
             padding: 1.1rem 1.5rem;
             display: flex;
             align-items: center;
