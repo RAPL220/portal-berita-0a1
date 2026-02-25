@@ -58,7 +58,7 @@
                 <h3>Tentang Kami</h3>
                 <ul class="footer-links">
                     <li><a href="#">Berita Terkini</a></li>
-                    {{-- <li><a href="#">Pedoman Media Siber</a></li> --}}
+                    <li><a href="{{ route('redaksi') }}">Redaksi</a></li>
                     {{-- <li><a href="#">Kontak</a></li> --}}
                     {{-- <li><a href="#">Karir</a></li> --}}
                     {{-- <li><a href="#">Advertise</a></li> --}}

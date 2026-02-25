@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\RedaksiController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/redaksi', [RedaksiController::class, 'index'])->name('redaksi');
 
 // semua berita
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');

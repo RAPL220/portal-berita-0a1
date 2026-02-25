@@ -505,7 +505,6 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             line-height: 1.6;
-            /* Pastikan tidak ada child element yg memecah clamp */
             word-break: break-word;
         }
 
