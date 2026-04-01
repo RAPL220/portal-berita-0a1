@@ -194,7 +194,7 @@
             transform: scale(1.02);
         }
 
-        /* ==================== ARTICLE CONTENT — FIXED LIST RENDERING ==================== */
+        /* ==================== ARTICLE CONTENT ==================== */
         .article-content {
             font-size: 1.05rem;
             line-height: 1.95;
@@ -202,42 +202,50 @@
         }
 
         .article-content p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem !important;
+            display: block !important;
+        }
+
+        .article-content h1,
+        .article-content h2,
+        .article-content h3,
+        .article-content h4,
+        .article-content h5,
+        .article-content h6 {
+            display: block !important;
+            font-weight: 900 !important;
+            color: var(--text-dark) !important;
+            line-height: 1.3 !important;
         }
 
         .article-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 900;
-            color: var(--text-dark);
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.6rem;
-            border-bottom: 3px solid var(--primary);
+            font-size: 1.75rem !important;
+            margin-top: 2.5rem !important;
+            margin-bottom: 1rem !important;
+            padding-bottom: 0.6rem !important;
+            border-bottom: 3px solid var(--primary) !important;
         }
 
         .article-content h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.4rem !important;
+            margin-top: 2rem !important;
+            margin-bottom: 0.75rem !important;
         }
 
         .article-content h4 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-top: 1.5rem;
-            margin-bottom: 0.6rem;
+            font-size: 1.15rem !important;
+            margin-top: 1.5rem !important;
+            margin-bottom: 0.6rem !important;
         }
 
-        /* ===== BULLET / LIST FIX ===== */
+        /* ===== LIST FIX — !important agar tidak di-reset framework ===== */
         .article-content ul,
         .article-content ol {
+            display: block !important;
             padding-left: 2rem !important;
-            margin-bottom: 1.5rem !important;
             margin-top: 0.5rem !important;
+            margin-bottom: 1.5rem !important;
         }
 
         .article-content ul {
@@ -266,118 +274,162 @@
             display: list-item !important;
             margin-bottom: 0.5rem !important;
             line-height: 1.8 !important;
-            color: #2d3748;
+            color: #2d3748 !important;
         }
 
         .article-content li::marker {
-            /* buletin untuk content */
             color: var(--primary-dark);
             font-weight: 700;
         }
 
-        /* ===== END BULLET / LIST FIX ===== */
+        /* Quill editor classes */
+        .article-content .ql-indent-1 {
+            padding-left: 3em !important;
+        }
+
+        .article-content .ql-indent-2 {
+            padding-left: 6em !important;
+        }
+
+        .article-content .ql-indent-3 {
+            padding-left: 9em !important;
+        }
+
+        .article-content .ql-align-center {
+            text-align: center !important;
+        }
+
+        .article-content .ql-align-right {
+            text-align: right !important;
+        }
+
+        .article-content .ql-align-justify {
+            text-align: justify !important;
+        }
+
+        .article-content .ql-size-small {
+            font-size: 0.85em !important;
+        }
+
+        .article-content .ql-size-large {
+            font-size: 1.25em !important;
+        }
+
+        .article-content .ql-size-huge {
+            font-size: 1.6em !important;
+        }
+
+        /* ===== END LIST FIX ===== */
 
         .article-content blockquote {
-            border-left: 5px solid var(--primary-dark);
-            background: var(--bg-soft);
-            padding: 1.25rem 1.75rem;
-            margin: 2rem 0;
-            border-radius: 0 12px 12px 0;
-            font-style: italic;
-            color: var(--text-gray);
-            font-size: 1.05rem;
+            display: block !important;
+            border-left: 5px solid var(--primary-dark) !important;
+            background: var(--bg-soft) !important;
+            padding: 1.25rem 1.75rem !important;
+            margin: 2rem 0 !important;
+            border-radius: 0 12px 12px 0 !important;
+            font-style: italic !important;
+            color: var(--text-gray) !important;
+            font-size: 1.05rem !important;
         }
 
         .article-content blockquote p {
-            margin-bottom: 0;
+            margin-bottom: 0 !important;
         }
 
         .article-content img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin: 2rem 0;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            display: block;
+            display: block !important;
+            width: 100% !important;
+            height: auto !important;
+            border-radius: 12px !important;
+            margin: 2rem 0 !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
         }
 
         .article-content a {
-            color: var(--primary-dark);
-            text-decoration: underline;
-            font-weight: 600;
+            color: var(--primary-dark) !important;
+            text-decoration: underline !important;
+            font-weight: 600 !important;
         }
 
         .article-content a:hover {
-            color: var(--primary-mid);
+            color: var(--primary-mid) !important;
         }
 
         .article-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-size: 0.95rem;
+            display: table !important;
+            width: 100% !important;
+            border-collapse: collapse !important;
+            margin: 2rem 0 !important;
+            font-size: 0.95rem !important;
         }
 
         .article-content table th {
-            background: var(--primary-dark);
-            color: white;
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-weight: 700;
+            display: table-cell !important;
+            background: var(--primary-dark) !important;
+            color: white !important;
+            padding: 0.75rem 1rem !important;
+            text-align: left !important;
+            font-weight: 700 !important;
         }
 
         .article-content table td {
-            padding: 0.65rem 1rem;
-            border-bottom: 1px solid var(--border-light);
+            display: table-cell !important;
+            padding: 0.65rem 1rem !important;
+            border-bottom: 1px solid var(--border-light) !important;
         }
 
         .article-content table tr:nth-child(even) td {
-            background: var(--bg-soft);
+            background: var(--bg-soft) !important;
         }
 
         .article-content hr {
-            border: none;
-            border-top: 2px solid var(--border-light);
-            margin: 2rem 0;
+            display: block !important;
+            border: none !important;
+            border-top: 2px solid var(--border-light) !important;
+            margin: 2rem 0 !important;
         }
 
-        .article-content strong {
-            color: var(--text-dark);
-            font-weight: 800;
+        .article-content strong,
+        .article-content b {
+            color: var(--text-dark) !important;
+            font-weight: 800 !important;
         }
 
-        .article-content em {
-            font-style: italic;
+        .article-content em,
+        .article-content i {
+            font-style: italic !important;
         }
 
         .article-content pre {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 1.25rem 1.5rem;
-            border-radius: 10px;
-            overflow-x: auto;
-            margin: 2rem 0;
-            font-size: 0.9rem;
-            line-height: 1.7;
+            display: block !important;
+            background: #1e293b !important;
+            color: #e2e8f0 !important;
+            padding: 1.25rem 1.5rem !important;
+            border-radius: 10px !important;
+            overflow-x: auto !important;
+            margin: 2rem 0 !important;
+            font-size: 0.9rem !important;
+            line-height: 1.7 !important;
         }
 
         .article-content code {
-            background: var(--bg-soft);
-            color: var(--primary-dark);
-            padding: 0.15rem 0.45rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-            font-family: 'Courier New', monospace;
+            background: var(--bg-soft) !important;
+            color: var(--primary-dark) !important;
+            padding: 0.15rem 0.45rem !important;
+            border-radius: 4px !important;
+            font-size: 0.9em !important;
+            font-family: 'Courier New', monospace !important;
         }
 
         .article-content pre code {
-            background: transparent;
-            color: inherit;
-            padding: 0;
-            border-radius: 0;
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
         }
 
-        /* ==================== TAG SECTION ==================== */
+        /* ==================== TAGS ==================== */
         .article-tags {
             margin-top: 2rem;
             display: flex;
@@ -412,7 +464,7 @@
             border-color: var(--primary-dark);
         }
 
-        /* ==================== SHARE SECTION ==================== */
+        /* ==================== SHARE ==================== */
         .share-section {
             margin-top: 2.5rem;
             padding-top: 2rem;
@@ -447,6 +499,8 @@
             border: none;
             cursor: pointer;
             letter-spacing: 0.3px;
+            font-family: inherit;
+            line-height: 1;
         }
 
         .share-btn:hover {
@@ -549,7 +603,7 @@
         }
 
         .widget-header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-dark));
+            background: var(--primary-dark);
             padding: 1.1rem 1.5rem;
             display: flex;
             align-items: center;
@@ -580,7 +634,6 @@
             padding: 1.25rem;
         }
 
-        /* Sidebar Article */
         .sidebar-article {
             display: flex;
             gap: 1rem;
@@ -794,13 +847,10 @@
                 <article class="article-main fade-in delay-1">
                     <div class="article-main-inner">
 
-                        <!-- Category -->
                         <span class="article-category-badge">{{ $news->category->title }}</span>
 
-                        <!-- Title -->
                         <h1 class="article-title">{{ $news->title }}</h1>
 
-                        <!-- Meta -->
                         <div class="article-meta">
                             <div class="author-info">
                                 <img src="{{ asset('storage/' . $news->author->avatar) }}" alt="{{ $news->author->name }}"
@@ -838,18 +888,15 @@
                             </div>
                         </div>
 
-                        <!-- Featured Image -->
                         <div class="article-featured-image-wrapper">
                             <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
                                 class="article-featured-image">
                         </div>
 
-                        <!-- Content -->
                         <div class="article-content">
                             {!! $news->content !!}
                         </div>
 
-                        <!-- Tags -->
                         <div class="article-tags">
                             <span class="tag-label">Topik:</span>
                             <a href="{{ route('news.category', $news->category->slug) }}" class="tag-item">
@@ -885,7 +932,12 @@
                                     </svg>
                                     WhatsApp
                                 </a>
-                                <button onclick="copyLink('{{ route('news.show', $news->slug) }}')"
+
+                                {{--
+                                    PERBAIKAN: Gunakan id + data-url, BUKAN onclick dengan event global.
+                                    event.currentTarget di dalam callback async tidak reliable.
+                                --}}
+                                <button id="btn-copy-link" data-url="{{ route('news.show', $news->slug) }}"
                                     class="share-btn btn-copy">
                                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -917,7 +969,6 @@
                 <!-- ========== SIDEBAR ========== -->
                 <aside class="sidebar-sticky fade-in delay-2">
 
-                    <!-- Berita Terbaru Widget -->
                     <div class="sidebar-widget">
                         <div class="widget-header">
                             <div class="widget-icon">
@@ -954,7 +1005,6 @@
                         </div>
                     </div>
 
-                    <!-- Kategori Widget -->
                     <div class="sidebar-widget">
                         <div class="widget-header">
                             <div class="widget-icon">
@@ -970,9 +1020,9 @@
                             @foreach (\App\Models\Categories::all() as $cat)
                                 <a href="{{ route('news.category', $cat->slug) }}"
                                     style="display:flex; justify-content:space-between; align-items:center;
-                                      padding: 0.65rem 0; border-bottom: 1.5px solid var(--border-light);
-                                      text-decoration:none; color: var(--text-dark); font-weight:600;
-                                      font-size:0.88rem; transition: all 0.2s;"
+                                           padding: 0.65rem 0; border-bottom: 1.5px solid var(--border-light);
+                                           text-decoration:none; color: var(--text-dark); font-weight:600;
+                                           font-size:0.88rem; transition: all 0.2s;"
                                     onmouseover="this.style.color='var(--primary-dark)'; this.style.paddingLeft='0.4rem'"
                                     onmouseout="this.style.color='var(--text-dark)'; this.style.paddingLeft='0'">
                                     <span>{{ $cat->title }}</span>
@@ -992,19 +1042,61 @@
     </div>
 
     <script>
-        function copyLink(url) {
-            navigator.clipboard.writeText(url).then(() => {
-                const btn = event.currentTarget;
-                const original = btn.innerHTML;
-                btn.innerHTML =
-                    '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Tersalin!';
-                btn.style.background = '#16a34a';
-                setTimeout(() => {
-                    btn.innerHTML = original;
-                    btn.style.background = '';
-                }, 2000);
-            }).catch(() => alert('Gagal menyalin link.'));
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+
+            var btn = document.getElementById('btn-copy-link');
+            if (!btn) return;
+
+            btn.addEventListener('click', function() {
+                var url = btn.getAttribute('data-url');
+                var originalHTML = btn.innerHTML;
+
+                function showSuccess() {
+                    btn.innerHTML =
+                        '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">' +
+                        '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Tersalin!';
+                    btn.style.background = '#16a34a';
+                    setTimeout(function() {
+                        btn.innerHTML = originalHTML;
+                        btn.style.background = '';
+                    }, 2500);
+                }
+
+                function showError() {
+                    btn.innerHTML = '&#x2717; Gagal menyalin';
+                    btn.style.background = '#dc2626';
+                    setTimeout(function() {
+                        btn.innerHTML = originalHTML;
+                        btn.style.background = '';
+                    }, 2500);
+                }
+
+                /* Clipboard API — butuh HTTPS atau localhost */
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(showSuccess).catch(function() {
+                        fallbackCopy(url);
+                    });
+                } else {
+                    /* Fallback execCommand — bekerja di HTTP dan browser lama */
+                    fallbackCopy(url);
+                }
+
+                function fallbackCopy(text) {
+                    var ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy') ? showSuccess() : showError();
+                    } catch (e) {
+                        showError();
+                    }
+                    document.body.removeChild(ta);
+                }
+            });
+        });
     </script>
 
 @endsection
