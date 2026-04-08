@@ -24,6 +24,67 @@
             box-sizing: border-box;
         }
 
+        /* ==================== TOP BANNER ==================== */
+        .top-banner-section {
+            width: 100%;
+            background: #fff;
+            padding-top: 1rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .banner-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        @media (max-width: 1024px) {
+            .banner-container {
+                padding: 0 1.5rem;
+            }
+
+            .banner-image {
+                border-radius: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-banner-section {
+                padding-top: 0.75rem;
+            }
+
+            .banner-container {
+                padding: 0 1rem;
+            }
+
+            .banner-image {
+                border-radius: 8px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .top-banner-section {
+                padding-top: 0.5rem;
+            }
+
+            .banner-container {
+                padding: 0 0.75rem;
+            }
+
+            .banner-image {
+                border-radius: 6px;
+            }
+        }
+
         /* ==================== WRAPPER ==================== */
         .detail-wrapper {
             background: #F8FAFC;
@@ -829,6 +890,13 @@
         }
     </style>
 
+    <!-- ==================== TOP BANNER ==================== -->
+    <section class="top-banner-section">
+        <div class="banner-container">
+            <img src="{{ asset('/asset/img/banner_main.jpeg') }}" alt="Banner Utama" class="banner-image">
+        </div>
+    </section>
+
     <div class="detail-wrapper">
         <div class="detail-container">
 
@@ -933,10 +1001,6 @@
                                     WhatsApp
                                 </a>
 
-                                {{--
-                                    PERBAIKAN: Gunakan id + data-url, BUKAN onclick dengan event global.
-                                    event.currentTarget di dalam callback async tidak reliable.
-                                --}}
                                 <button id="btn-copy-link" data-url="{{ route('news.show', $news->slug) }}"
                                     class="share-btn btn-copy">
                                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -972,8 +1036,8 @@
                     <div class="sidebar-widget">
                         <div class="widget-header">
                             <div class="widget-icon">
-                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
+                                <svg width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                                 </svg>

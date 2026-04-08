@@ -739,11 +739,11 @@
                                         {{ $articleBanner->category->title }}
                                     </div>
                                     <p class="text-3xl font-semibold text-white mt-1">{{ $articleBanner->title }}</p>
-                                    <div class="flex items-center gap-1 mt-1">
+                                    {{-- <div class="flex items-center gap-1 mt-1">
                                         <img src="{{ asset('storage/' . $articleBanner->author->avatar) }}" alt=""
                                             class="w-5 h-5 rounded-full">
                                         <p class="text-white text-xs">{{ $articleBanner->author->name }}</p>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </a>

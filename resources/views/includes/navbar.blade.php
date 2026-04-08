@@ -1,7 +1,7 @@
 <!-- Navigation Bar -->
 <nav class="navbar sticky top-0 z-50 bg-dark shadow-sm" id="navbar">
     <div class="nav-container">
-        <!-- Top Row: Logo & Hamburger (Mobile) / Full Nav (Desktop) -->
+        <!-- Top Row -->
         <div class="nav-top flex justify-between items-center py-3 px-4 lg:py-5 lg:px-14">
             <div class="flex gap-10 w-full items-center">
                 <!-- Logo -->
@@ -20,56 +20,71 @@
                             <a href="{{ route('landing') }}"
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a>
                         </li>
-                        @foreach (\App\Models\Categories::all() as $category)
-                            <li>
-                                <a href="{{ route('news.category', $category->slug) }}"
-                                    class="nav-link {{ request()->is($category->slug) ? 'active' : '' }}">{{ $category->title }}</a>
-                            </li>
-                        @endforeach
+
+                        <!-- Dropdown: Kategori -->
+                        <li class="nav-dropdown-item">
+                            <button class="nav-link nav-dropdown-trigger flex items-center gap-1">
+                                Kategori
+                                <svg class="dropdown-chevron w-4 h-4 transition-transform duration-300" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <div class="nav-dropdown-menu">
+                                <div class="nav-dropdown-inner">
+                                    @foreach (\App\Models\Categories::all() as $category)
+                                        <a href="{{ route('news.category', $category->slug) }}"
+                                            class="nav-dropdown-link {{ request()->is($category->slug) ? 'active' : '' }}">
+                                            <span class="dropdown-dot"></span>
+                                            {{ $category->title }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Desktop: Date, Search and Login -->
+            <!-- Desktop: Date, Search, Login -->
             <div class="nav-actions hidden lg:flex items-center gap-4 w-full lg:w-auto">
-                <!-- Date Display -->
-                <div class="date-display  text-white font-semibold text-sm whitespace-nowrap">
+                <div class="date-display text-white font-semibold text-sm whitespace-nowrap">
                     <span id="currentDate"></span>
                 </div>
 
                 <div class="search-box relative w-full lg:w-auto">
                     <form action="{{ route('news.index') }}" method="GET">
-                        <input name="search" type="text" placeholder="Cari berita..."
-                            class="search-input border border-slate-600 rounded-full px-4 py-2 pl-10 w-full text-sm font-normal lg:w-auto focus:outline-none focus:ring-primary focus:border-primary"
+                        <input name="search" type="text" placeholder="Cari berita..." class="search-input"
                             id="searchInput" />
                     </form>
-                    <!-- Search Icon -->
-                    <span class="search-icon absolute inset-y-0 left-3 flex items-center text-slate-400">
+                    <span class="search-icon">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </span>
                 </div>
-                <a href="/admin"
-                    class="btn-login bg-primary px-8 py-2 rounded-full text-white font-semibold h-fit text-sm lg:text-base">
-                    Masuk
-                </a>
+
+                <a href="/admin" class="btn-login">Masuk</a>
             </div>
 
-            <div class="date-display-mobile text-white font-semibold text-xs flex-shrink-0  lg:hidden ">
+            <!-- Mobile: Date + Hamburger -->
+            <div class="date-display-mobile text-white font-semibold text-xs flex-shrink-0 lg:hidden">
                 <span id="currentDateMobile" style="white-space: nowrap;"></span>
             </div>
-            <!-- Mobile: Hamburger Menu Button -->
-            <button class="menu-toggle lg:hidden text-white text-2xl focus:outline-none ml-auto" id="menu-toggle">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <button class="menu-toggle lg:hidden text-white focus:outline-none ml-3" id="menu-toggle">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="hamburger-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
 
-        <!-- Mobile Row 2: Scrollable Categories -->
+        <!-- Mobile: Scrollable Categories -->
         <div class="mobile-categories lg:hidden pb-3 relative">
             <div class="categories-scroll-container overflow-x-auto px-4" id="categoriesContainer">
                 <ul class="categories-scroll flex gap-4 whitespace-nowrap">
@@ -85,32 +100,21 @@
                     @endforeach
                 </ul>
             </div>
-            <!-- Scroll Indicators (Gradients) -->
             <div class="scroll-indicator left-indicator" id="leftIndicator"></div>
             <div class="scroll-indicator right-indicator" id="rightIndicator"></div>
         </div>
     </div>
 
-    <!-- Mobile Dropdown Menu (when hamburger clicked) -->
+    <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="mobile-dropdown hidden lg:hidden">
         <div class="mobile-menu-content p-4">
-            <!-- Row 1: Search Box -->
             <div class="search-box-mobile relative mb-3">
                 <form action="{{ route('news.index') }}" method="GET">
-                    <input name="search" type="text" placeholder="Cari berita..."
-                        class="search-input-mobile border border-slate-600 rounded-full px-3 py-2.5 pl-10 w-full text-sm font-normal focus:outline-none focus:ring-primary focus:border-primary" />
+                    <input name="search" type="text" placeholder="Cari berita..." class="search-input-mobile" />
                 </form>
-                <!-- Search Icon -->
-
             </div>
-
-            <!-- Row 2: Login Button -->
-            <div class="flex items-center justify-between gap-3" style="justify-content: end">
-                <!-- Login Button -->
-                <a href="/admin"
-                    class="btn-login-mobile bg-primary px-6 py-2.5 rounded-full text-white font-semibold text-sm text-center whitespace-nowrap">
-                    Masuk
-                </a>
+            <div class="flex items-center justify-end gap-3">
+                <a href="/admin" class="btn-login-mobile">Masuk</a>
             </div>
         </div>
     </div>
@@ -127,7 +131,6 @@
         --border-light: #E2E8F0;
     }
 
-    /* Logo Wrapper */
     .logo-wrapper {
         background: white;
         padding: 0px 30px !important;
@@ -145,7 +148,6 @@
         display: block;
     }
 
-    /* Navbar Styles */
     .navbar {
         background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
         backdrop-filter: blur(10px);
@@ -169,7 +171,7 @@
         gap: 2.5rem;
     }
 
-    /* Nav Links - Desktop */
+    /* Nav Links */
     .nav-link {
         text-decoration: none;
         color: white;
@@ -178,6 +180,9 @@
         transition: color 0.3s ease;
         position: relative;
         padding: 0.5rem 0;
+        background: none;
+        border: none;
+        cursor: pointer;
     }
 
     .nav-link:hover,
@@ -196,7 +201,106 @@
         border-radius: 2px;
     }
 
-    /* Date Display - Desktop */
+    /* ==================== DROPDOWN ==================== */
+    .nav-dropdown-item {
+        position: relative;
+        list-style: none;
+    }
+
+    .nav-dropdown-trigger {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .nav-dropdown-trigger.open {
+        color: var(--primary);
+    }
+
+    .nav-dropdown-trigger.open .dropdown-chevron {
+        transform: rotate(180deg);
+        color: var(--primary);
+    }
+
+    .nav-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 16px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        min-width: 220px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+        z-index: 1000;
+    }
+
+    .nav-dropdown-menu.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .nav-dropdown-menu::before {
+        content: '';
+        position: absolute;
+        top: -7px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #2D2D2D;
+    }
+
+    .nav-dropdown-inner {
+        background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 0.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 107, 53, 0.1);
+        overflow: hidden;
+    }
+
+    .nav-dropdown-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.65rem 1rem;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .nav-dropdown-link:hover,
+    .nav-dropdown-link.active {
+        background: rgba(255, 107, 53, 0.15);
+        color: var(--primary);
+        padding-left: 1.25rem;
+    }
+
+    .dropdown-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        flex-shrink: 0;
+        transition: background 0.2s ease;
+    }
+
+    .nav-dropdown-link:hover .dropdown-dot,
+    .nav-dropdown-link.active .dropdown-dot {
+        background: var(--primary);
+    }
+
+    .nav-dropdown-link+.nav-dropdown-link {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ==================== DATE ==================== */
     .date-display {
         padding: 0.65rem 1rem;
         font-size: 12px;
@@ -204,17 +308,16 @@
         border-radius: 50px;
     }
 
-    /* Date Display - Mobile */
     .date-display-mobile {
         padding: 0.5rem 0.75rem;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         font-size: 11px;
-        margin-right: 10px
+        margin-right: 10px;
     }
 
-    /* Search Box - Desktop */
+    /* ==================== SEARCH ==================== */
     .search-box {
         position: relative;
     }
@@ -250,7 +353,6 @@
         color: rgba(255, 255, 255, 0.6);
     }
 
-    /* Search Box - Mobile */
     .search-box-mobile {
         position: relative;
     }
@@ -258,6 +360,9 @@
     .search-input-mobile {
         border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 50px;
+        padding: 0.65rem 1rem;
+        width: 100%;
+        font-size: 0.9rem;
         transition: all 0.3s ease;
         background: rgba(255, 255, 255, 0.1);
         color: white;
@@ -273,15 +378,7 @@
         background: rgba(255, 255, 255, 0.15);
     }
 
-    .search-icon-mobile {
-        position: absolute;
-        left: 0.75rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Mobile Categories Scrollable */
+    /* ==================== MOBILE CATEGORIES ==================== */
     .mobile-categories {
         position: relative;
     }
@@ -326,7 +423,6 @@
         border-bottom-color: var(--primary);
     }
 
-    /* Scroll Indicators (Gradient overlays) */
     .scroll-indicator {
         position: absolute;
         top: 0;
@@ -339,19 +435,13 @@
 
     .left-indicator {
         left: 0;
-        background: linear-gradient(to right,
-                var(--bg-dark-secondary) 0%,
-                rgba(45, 45, 45, 0.8) 50%,
-                transparent 100%);
+        background: linear-gradient(to right, var(--bg-dark-secondary) 0%, rgba(45, 45, 45, 0.8) 50%, transparent 100%);
         opacity: 0;
     }
 
     .right-indicator {
         right: 0;
-        background: linear-gradient(to left,
-                var(--bg-dark-secondary) 0%,
-                rgba(45, 45, 45, 0.8) 50%,
-                transparent 100%);
+        background: linear-gradient(to left, var(--bg-dark-secondary) 0%, rgba(45, 45, 45, 0.8) 50%, transparent 100%);
         opacity: 1;
     }
 
@@ -363,7 +453,7 @@
         opacity: 0;
     }
 
-    /* Login Button */
+    /* ==================== BUTTONS ==================== */
     .btn-login {
         padding: 0.65rem 2rem;
         background: var(--primary);
@@ -376,6 +466,7 @@
         transition: all 0.3s ease;
         text-decoration: none;
         display: inline-block;
+        white-space: nowrap;
     }
 
     .btn-login:hover {
@@ -402,16 +493,15 @@
         background: var(--primary-dark);
     }
 
-    /* Hamburger Menu */
+    /* ==================== HAMBURGER ==================== */
     .menu-toggle {
         background: none;
         border: none;
         cursor: pointer;
         color: white;
-        font-size: 24px;
     }
 
-    /* Mobile Dropdown Menu */
+    /* ==================== MOBILE DROPDOWN MENU ==================== */
     .mobile-dropdown {
         background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -438,7 +528,7 @@
         }
     }
 
-    /* Mobile Specific Styles - LOGO LEBIH BESAR */
+    /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1024px) {
         #logo_navbar {
             max-height: 45px;
@@ -451,18 +541,14 @@
 
         .nav-top {
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1rem;
         }
 
         .nav-container {
             padding: 0;
         }
-
-        .nav-top {
-            padding: 0.75rem 1rem;
-        }
     }
 
-    /* Hide mobile elements on desktop */
     @media (min-width: 1025px) {
 
         .mobile-categories,
@@ -474,93 +560,93 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile Menu Toggle
+
+        // ==================== MOBILE MENU TOGGLE ====================
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
 
         if (menuToggle && mobileMenu) {
             menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
+                const isOpen = mobileMenu.classList.toggle('active');
+                hamburgerIcon.classList.toggle('hidden', isOpen);
+                closeIcon.classList.toggle('hidden', !isOpen);
             });
         }
 
-        // Navbar Scroll Effect
+        // ==================== DROPDOWN KATEGORI ====================
+        const trigger = document.querySelector('.nav-dropdown-trigger');
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+
+        if (trigger && dropdownMenu) {
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isOpen = dropdownMenu.classList.toggle('open');
+                trigger.classList.toggle('open', isOpen);
+            });
+
+            // Tutup jika klik di luar
+            document.addEventListener('click', function(e) {
+                if (!trigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove('open');
+                    trigger.classList.remove('open');
+                }
+            });
+
+            // Tutup jika tekan Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    dropdownMenu.classList.remove('open');
+                    trigger.classList.remove('open');
+                }
+            });
+        }
+
+        // ==================== NAVBAR SCROLL ====================
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Categories Horizontal Scroll Indicators
+        // ==================== CATEGORIES SCROLL INDICATORS ====================
         const categoriesContainer = document.getElementById('categoriesContainer');
         const leftIndicator = document.getElementById('leftIndicator');
         const rightIndicator = document.getElementById('rightIndicator');
 
         function updateScrollIndicators() {
             if (!categoriesContainer) return;
-
-            const scrollLeft = categoriesContainer.scrollLeft;
-            const scrollWidth = categoriesContainer.scrollWidth;
-            const clientWidth = categoriesContainer.clientWidth;
+            const {
+                scrollLeft,
+                scrollWidth,
+                clientWidth
+            } = categoriesContainer;
             const maxScroll = scrollWidth - clientWidth;
-
-            // Show/hide left indicator
-            if (scrollLeft > 10) {
-                leftIndicator.classList.add('show');
-            } else {
-                leftIndicator.classList.remove('show');
-            }
-
-            // Show/hide right indicator
-            if (scrollLeft < maxScroll - 10) {
-                rightIndicator.classList.remove('hide');
-            } else {
-                rightIndicator.classList.add('hide');
-            }
+            leftIndicator.classList.toggle('show', scrollLeft > 10);
+            rightIndicator.classList.toggle('hide', scrollLeft >= maxScroll - 10);
         }
 
         if (categoriesContainer) {
-            // Update indicators on scroll
             categoriesContainer.addEventListener('scroll', updateScrollIndicators);
-
-            // Initial check
             updateScrollIndicators();
-
-            // Re-check on window resize
             window.addEventListener('resize', updateScrollIndicators);
         }
 
-        // Update Date and Time
+        // ==================== DATE ====================
         function updateDate() {
             const dateElement = document.getElementById('currentDate');
             const dateElementMobile = document.getElementById('currentDateMobile');
             const now = new Date();
-
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
                 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
             ];
-
-            const dayName = days[now.getDay()];
-            const day = now.getDate();
-            const month = months[now.getMonth()];
-            const year = now.getFullYear();
-
-            const dateText = `${dayName}, ${day} ${month}`;
-
-            if (dateElement) {
-                dateElement.textContent = dateText;
-            }
-            if (dateElementMobile) {
-                dateElementMobile.textContent = dateText;
-            }
+            const dateText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
+            if (dateElement) dateElement.textContent = dateText;
+            if (dateElementMobile) dateElementMobile.textContent = dateText;
         }
 
         updateDate();
-        // Update every minute
         setInterval(updateDate, 60000);
     });
 </script>
